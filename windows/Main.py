@@ -23,12 +23,13 @@ from sys import argv, exit
 # Could be a better written class, but oh well
 class Afk_Clicker:
 
-  def __init__(self, mouse_btn=0, keyboard_key=0x0):
+  def __init__(self, mouse_btn=0, keyboard_key=0x0, sleepTime=1):
     self.mouse_btn = 0
     self.mouse_btn_up = 0
     self.mouse_btn_dn = 0
 
     self.keyboard_key = keyboard_key
+    self.sleepTime = sleepTime
 
     if (mouse_btn == 2):
       self.mouse_btn = win32con.MK_RBUTTON
@@ -102,7 +103,7 @@ class Afk_Clicker:
         self.keystroke(hwndMain)
 
       #sleep(1) this waits 1 second before looping through again
-      sleep(1)
+      sleep(self.sleepTime)
 
 
 # Main execution code
@@ -121,6 +122,10 @@ def Main():
   # Keyboard key
   parser.add_argument(
       "-k", "--key", help="Hexadecimal value for keyboard input. 0 disable.")
+
+  # Time to sleep
+  parser.add_argument(
+      "-s", "--sleepTime", type=int, default=1, help="Time to sleep between presses in seconds. Defaults to 1.")  
 
   # Obligatory (one or another)
   group = parser.add_mutually_exclusive_group()
@@ -143,7 +148,7 @@ def Main():
     args.key = 0x0
 
   # Initialize class
-  afk_Clicker = Afk_Clicker(args.mouse, args.key)
+  afk_Clicker = Afk_Clicker(args.mouse, args.key, args.sleepTime)
 
   # Getting handlers and running main code loop
   if (args.name != None):
