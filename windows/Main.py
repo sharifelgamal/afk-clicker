@@ -125,7 +125,7 @@ def Main():
 
   # Time to sleep
   parser.add_argument(
-      "-s", "--sleepTime", type=int, default=1, help="Time to sleep between presses in seconds. Defaults to 1.")  
+      "-s", "--sleepTime", type=float, default=1.0, help="Time to sleep between presses in seconds. Defaults to 1.")  
 
   # Obligatory (one or another)
   group = parser.add_mutually_exclusive_group()
